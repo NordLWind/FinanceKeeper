@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:5432/finance_keeper
+  liquibase:
+    change-log: db/changelog/changelog-master.xml
+  jpa:
+    databasePlatform: org.hibernate.dialect.PostgreSQL9Dialect
+    hibernate:
+      ddlAuto: update
+    openInView: false
