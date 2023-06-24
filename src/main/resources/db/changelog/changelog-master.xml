@@ -1,0 +1,127 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="ksa (generated)" id="1680528823704-1">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="ksa (generated)" id="1680528823704-2">
+        <createTable tableName="bank_accounts">
+            <column autoIncrement="true" name="id" startWith="10" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="bank_accounts_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="balance" type="numeric(9, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ksa (generated)" id="1680528823704-3">
+        <createTable tableName="transactions">
+            <column autoIncrement="true" name="id" startWith="3" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="transactions_pkey"/>
+            </column>
+            <column name="amount" type="numeric(9, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="source_id" type="INTEGER"/>
+            <column name="target_id" type="INTEGER"/>
+            <column name="time" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="user_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ksa (generated)" id="1680528823704-4">
+        <createTable tableName="transaction_types">
+            <column autoIncrement="true" name="id" startWith="3" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="transaction_types_pkey"/>
+            </column>
+            <column name="type" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ksa (generated)" id="1680528823704-5">
+        <createTable tableName="transactions_to_types">
+            <column name="transaction_id" type="INTEGER"/>
+            <column name="type_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ksa (generated)" id="1680528823704-6">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="bank_accounts"
+                                 constraintName="bank_accounts_user_id_fkey" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="ksa (generated)" id="1680528823704-7">
+        <addForeignKeyConstraint baseColumnNames="source_id" baseTableName="transactions"
+                                 constraintName="transactions_source_id_fkey" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="bank_accounts" validate="true"/>
+    </changeSet>
+    <changeSet author="ksa (generated)" id="1680528823704-8">
+        <addForeignKeyConstraint baseColumnNames="target_id" baseTableName="transactions"
+                                 constraintName="transactions_target_id_fkey" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="bank_accounts" validate="true"/>
+    </changeSet>
+    <changeSet author="ksa (generated)" id="1680528823704-9">
+        <addForeignKeyConstraint baseColumnNames="transaction_id" baseTableName="transactions_to_types"
+                                 constraintName="transactions_to_types_transaction_id_fkey" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="transactions" validate="true"/>
+    </changeSet>
+    <changeSet author="ksa (generated)" id="1680528823704-10">
+        <addForeignKeyConstraint baseColumnNames="type_id" baseTableName="transactions_to_types"
+                                 constraintName="transactions_to_types_type_id_fkey" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="transaction_types" validate="true"/>
+    </changeSet>
+    <changeSet author="ksa (generated)" id="1680528823704-11">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="transactions"
+                                 constraintName="transactions_user_id_fkey" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="users" validate="true"/>
+    </changeSet>
+
+    <changeSet id="service_user_account" author="ksa">
+        <insert tableName="users">
+            <column name="id">0</column>
+            <column name="name">service_user</column>
+            <column name="email">someUniqueEmailWithoutAt:)</column>
+            <column name="password">somePassword</column>
+        </insert>
+        <insert tableName="bank_accounts">
+            <column name="id">0</column>
+            <column name="name">service_account</column>
+            <column name="balance">0.00</column>
+            <column name="user_id">0</column>
+        </insert>
+    </changeSet>
+
+    <changeSet id="add table user_roles" author="ksa">
+        <createTable tableName="user_roles">
+            <column name="user_id" type="int"/>
+            <column name="role" type="varchar(255)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="user_roles" baseColumnNames="user_id" constraintName="user_role_fkey"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
