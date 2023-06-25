@@ -11,5 +11,6 @@ public interface TypeRepository extends JpaRepository<Type, Long> {
     @Modifying
     @Query("update Type t set t.type = ?1 where t.id = ?2")
     void updateTypeById(String type, Long id);
+
     boolean existsByType(String type);
 }
