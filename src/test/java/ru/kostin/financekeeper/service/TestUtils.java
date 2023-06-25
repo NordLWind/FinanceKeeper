@@ -30,7 +30,7 @@ public class TestUtils {
     static Type getRandomTestType(boolean withId) {
         Type type = new Type();
         type.setType(UUID.randomUUID().toString());
-        if(withId) {
+        if (withId) {
             type.setId((long) (Math.random() * 100 + 1));
         }
         return type;
