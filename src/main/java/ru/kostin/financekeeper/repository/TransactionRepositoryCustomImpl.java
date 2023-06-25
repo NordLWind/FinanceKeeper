@@ -20,11 +20,11 @@ public class TransactionRepositoryCustomImpl implements TransactionRepositoryCus
         String query = "select t from Transaction t where t.owner = :owner";
         params.put("owner", filter.getOwner());
         if (filter.getBefore() != null) {
-            query += " and t.date < :dateBefore";
+            query += " and t.time < :dateBefore";
             params.put("dateBefore", filter.getBefore());
         }
         if (filter.getAfter() != null) {
-            query += " and t.date > :dateAfter";
+            query += " and t.time > :dateAfter";
             params.put("dateAfter", filter.getAfter());
         }
         if (filter.getType() != null) {

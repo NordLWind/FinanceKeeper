@@ -46,7 +46,7 @@ public class Transaction {
     List<Type> types;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "user_id")
     private User owner;
 
     @Override

@@ -1,0 +1,20 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <include file="db/changelog/changelog-master.xml"/>
+    <changeSet id="test" author="ksa">
+        <insert tableName="users">
+            <column name="id">1</column>
+            <column name="name">test1</column>
+            <column name="email">test1@t</column>
+            <column name="password">password1</column>
+        </insert>
+        <insert tableName="users">
+            <column name="name">test2</column>
+            <column name="email">test2@t</column>
+            <column name="password">password2</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

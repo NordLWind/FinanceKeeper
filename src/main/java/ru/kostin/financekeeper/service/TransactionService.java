@@ -64,7 +64,7 @@ public class TransactionService {
         transaction.setTarget(target);
         transaction.setDescription(description);
         transaction.setOwner(userRepo.findById(userId).orElseThrow(ItemNotExistException::new));
-        transaction.setTime(date == null ? new Date() : dateFormatter.format(date));
+        transaction.setTime(date.equals("0") ? new Date() : dateFormatter.format(date));
         transactionRepo.save(transaction);
     }
 
