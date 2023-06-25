@@ -16,6 +16,7 @@ import ru.kostin.financekeeper.exception.ItemNotExistException;
 import ru.kostin.financekeeper.repository.AccountRepository;
 import ru.kostin.financekeeper.repository.UserRepository;
 import ru.kostin.financekeeper.utils.BalanceFormatter;
+import ru.kostin.financekeeper.utils.BalanceFormatterImpl;
 import ru.kostin.financekeeper.utils.ModParam;
 
 import java.math.BigDecimal;
@@ -31,7 +32,7 @@ import static ru.kostin.financekeeper.service.TestUtils.getTestUser;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {AccountService.class, AccountConverter.class, BalanceFormatter.class})
+@ContextConfiguration(classes = {AccountService.class, AccountConverter.class, BalanceFormatterImpl.class})
 class AccountServiceTest {
 
     @Autowired
@@ -81,7 +82,7 @@ class AccountServiceTest {
         User owner = getTestUser(true);
         when(userRepository.findById(1L)).thenReturn(Optional.of(owner));
         when(accountRepository.existsByNameAndOwner_Id("test", 1L)).thenReturn(false);
-        when(formatter.formatBalanceString("213.00")).thenReturn(new BigDecimal("213.00"));
+        when(formatter.format("213.00")).thenReturn(new BigDecimal("213.00"));
 
         subj.add("test", "213.00", 1L);
 
@@ -98,7 +99,7 @@ class AccountServiceTest {
     void add_wrongBalance() {
         when(userRepository.findById(1L)).thenReturn(Optional.of(getTestUser(true)));
         when(accountRepository.existsByNameAndOwner_Id("wrong", 1L)).thenReturn(false);
-        doThrow(NumberFormatException.class).when(formatter).formatBalanceString("wrong_bal");
+        doThrow(NumberFormatException.class).when(formatter).format("wrong_bal");
 
         assertThrows(NumberFormatException.class, () -> subj.add("wrong", "wrong_bal", 1L));
     }
@@ -144,6 +145,7 @@ class AccountServiceTest {
     void modify_wrongBalance() {
         Account toMod = getTestAccount();
         when(accountRepository.findById(1L)).thenReturn(Optional.of(toMod));
+        doThrow(NumberFormatException.class).when(formatter).format("wrongBal");
 
         assertThrows(NumberFormatException.class, () -> subj.modify(1L, ModParam.BALANCE, "wrongBal", 1L));
     }
