@@ -8,6 +8,7 @@ import ru.kostin.financekeeper.entity.Account;
 import ru.kostin.financekeeper.entity.Transaction;
 import ru.kostin.financekeeper.exception.BalanceException;
 import ru.kostin.financekeeper.exception.ItemNotExistException;
+import ru.kostin.financekeeper.exception.SameAccountsException;
 import ru.kostin.financekeeper.repository.AccountRepository;
 import ru.kostin.financekeeper.repository.TransactionRepository;
 import ru.kostin.financekeeper.repository.TypeRepository;
@@ -55,7 +56,7 @@ public class TransactionService {
         Account source = accountRepo.findById(sourceId).orElseThrow(ItemNotExistException::new);
         Account target = accountRepo.findById(targetId).orElseThrow(ItemNotExistException::new);
         transaction.setAmount(balanceFormatter.format(amount));
-        checkBalance(source, transaction.getAmount());
+        checkAccounts(source, target, transaction.getAmount());
 
         source.setBalance(source.getBalance().subtract(transaction.getAmount()));
         target.setBalance(target.getBalance().add(transaction.getAmount()));
@@ -67,9 +68,13 @@ public class TransactionService {
         transactionRepo.save(transaction);
     }
 
-    private void checkBalance(Account source, BigDecimal amount) throws BalanceException {
+    private void checkAccounts(Account source, Account target, BigDecimal amount) throws BalanceException {
         if (source.getId() == 0) {
             return;
+        }
+
+        if (Objects.equals(source.getId(), target.getId())) {
+            throw new SameAccountsException();
         }
 
         if (source.getBalance().subtract(amount).signum() == -1) {
