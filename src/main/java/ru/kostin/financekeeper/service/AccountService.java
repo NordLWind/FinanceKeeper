@@ -50,7 +50,7 @@ public class AccountService {
         accountRepo.deleteById(id);
     }
 
-    public void modify(long id, ModParam param, String value, long userId) {
+    public void update(long id, ModParam param, String value, long userId) {
         Account account = accountRepo.findById(id).orElseThrow(ItemNotExistException::new);
         if (param == ModParam.BALANCE) {
             account.setBalance(formatter.format(value));

@@ -122,12 +122,12 @@ class AccountServiceTest {
         Account toMod = getTestAccount();
         when(accountRepository.findById(1L)).thenReturn(Optional.of(toMod));
         when(accountRepository.existsByNameAndOwner_Id("newName", 1L)).thenReturn(false);
-        subj.modify(1L, ModParam.NAME, "newName", 1L);
+        subj.update(1L, ModParam.NAME, "newName", 1L);
 
         verify(accountRepository).save(toMod);
         assertEquals("newName", toMod.getName());
 
-        subj.modify(1L, ModParam.BALANCE, "300.00", 1L);
+        subj.update(1L, ModParam.BALANCE, "300.00", 1L);
 
         assertEquals(new BigDecimal("300.00"), toMod.getBalance());
     }
@@ -138,7 +138,7 @@ class AccountServiceTest {
         when(accountRepository.findById(1L)).thenReturn(Optional.of(toMod));
         when(accountRepository.existsByNameAndOwner_Id("newName", 1L)).thenReturn(true);
 
-        assertThrows(ItemAlreadyExistsException.class, () -> subj.modify(1L, ModParam.NAME, "newName", 1L));
+        assertThrows(ItemAlreadyExistsException.class, () -> subj.update(1L, ModParam.NAME, "newName", 1L));
     }
 
     @Test
@@ -147,6 +147,6 @@ class AccountServiceTest {
         when(accountRepository.findById(1L)).thenReturn(Optional.of(toMod));
         doThrow(NumberFormatException.class).when(formatter).format("wrongBal");
 
-        assertThrows(NumberFormatException.class, () -> subj.modify(1L, ModParam.BALANCE, "wrongBal", 1L));
+        assertThrows(NumberFormatException.class, () -> subj.update(1L, ModParam.BALANCE, "wrongBal", 1L));
     }
 }
