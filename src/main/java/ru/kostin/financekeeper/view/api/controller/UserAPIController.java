@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.kostin.financekeeper.exception.ItemAlreadyExistsException;
 import ru.kostin.financekeeper.exception.ItemNotExistException;
 import ru.kostin.financekeeper.service.UserService;
+import ru.kostin.financekeeper.view.api.json.CompletionResponse;
 import ru.kostin.financekeeper.view.api.json.user.AddUserRequest;
 import ru.kostin.financekeeper.view.api.json.user.AuthRequest;
-import ru.kostin.financekeeper.view.api.json.CompletionResponse;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static org.springframework.http.ResponseEntity.*;
+import static org.springframework.http.ResponseEntity.ok;
+import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/api/user")

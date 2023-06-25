@@ -15,10 +15,10 @@ import ru.kostin.financekeeper.view.api.json.account.AccountListResponse;
 import ru.kostin.financekeeper.view.api.json.account.AccountUpdateRequest;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.util.List;
 
-import static org.springframework.http.ResponseEntity.*;
+import static org.springframework.http.ResponseEntity.ok;
+import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/api/account")
