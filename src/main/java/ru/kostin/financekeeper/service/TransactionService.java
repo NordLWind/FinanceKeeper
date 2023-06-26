@@ -51,7 +51,7 @@ public class TransactionService {
         return transactionRepo.getAllByFilter(filter).stream().map(converter::convert).collect(Collectors.toList());
     }
 
-    public void add(long sourceId, long targetId, String amount, String description, String date, long userId) throws ParseException {
+    public void add(long sourceId, long targetId, String amount, String description, String date, long userId, List<Long> types) throws ParseException {
         Transaction transaction = new Transaction();
         Account source = accountRepo.findById(sourceId).orElseThrow(ItemNotExistException::new);
         Account target = accountRepo.findById(targetId).orElseThrow(ItemNotExistException::new);
@@ -65,6 +65,9 @@ public class TransactionService {
         transaction.setDescription(description);
         transaction.setOwner(userRepo.findById(userId).orElseThrow(ItemNotExistException::new));
         transaction.setTime(date.equals("0") ? new Date() : dateFormatter.format(date));
+        transaction.setTypes(types.stream()
+                .map(l -> typeRepo.findById(l).orElseThrow(ItemNotExistException::new))
+                .collect(Collectors.toList()));
         transactionRepo.save(transaction);
     }
 

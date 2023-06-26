@@ -61,7 +61,7 @@ public class AccountAPIController extends AbstractAPIController {
             return status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        long idToDelete = accountService.getAll(id).get(accountDeleteReq.getId() - 1).getId();
+        long idToDelete = getIdFromDTOList(accountService.getAll(id), accountDeleteReq.getId());
         try {
             accountService.delete(idToDelete);
             return ok(new CompletionResponse(true));
@@ -76,9 +76,9 @@ public class AccountAPIController extends AbstractAPIController {
         if (id == null) {
             return status(HttpStatus.UNAUTHORIZED).build();
         }
-
+        Long accIdToUpdate = getIdFromDTOList(accountService.getAll(id), accountUpdateReq.getId());
         try {
-            accountService.update(accountUpdateReq.getId(), accountUpdateReq.getParam(), accountUpdateReq.getVal(), id);
+            accountService.update(accIdToUpdate, accountUpdateReq.getParam(), accountUpdateReq.getVal(), id);
             return ok(new CompletionResponse(true));
         } catch (ItemNotExistException | ItemAlreadyExistsException | NumberFormatException e) {
             return status(HttpStatus.BAD_REQUEST).build();

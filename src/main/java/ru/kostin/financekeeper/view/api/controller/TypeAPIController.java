@@ -59,7 +59,7 @@ public class TypeAPIController extends AbstractAPIController {
             return status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        long idToDelete = getIdFromList(typeDeleteReq.getId());
+        long idToDelete = getIdFromDTOList(typeService.getAll(), typeDeleteReq.getId());
 
         try {
             typeService.delete(idToDelete);
@@ -74,7 +74,7 @@ public class TypeAPIController extends AbstractAPIController {
         if (getIdFromReqSession(servletReq) == null) {
             return status(HttpStatus.UNAUTHORIZED).build();
         }
-        long idToMod = getIdFromList(typeUpdateReq.getId());
+        long idToMod = getIdFromDTOList(typeService.getAll(), typeUpdateReq.getId());
 
         try {
             typeService.update(idToMod, typeUpdateReq.getVal());
@@ -82,9 +82,5 @@ public class TypeAPIController extends AbstractAPIController {
         } catch (ItemAlreadyExistsException e) {
             return status(HttpStatus.BAD_REQUEST).build();
         }
-    }
-
-    private long getIdFromList(int id) {
-        return typeService.getAll().get(id - 1).getId();
     }
 }
