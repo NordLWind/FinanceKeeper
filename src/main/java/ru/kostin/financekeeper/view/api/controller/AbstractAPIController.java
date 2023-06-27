@@ -1,17 +1,20 @@
 package ru.kostin.financekeeper.view.api.controller;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import ru.kostin.financekeeper.dto.Dto;
+import ru.kostin.financekeeper.security.CustomUserDetails;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class AbstractAPIController {
-    protected void putIdToReqSession(Long id, HttpServletRequest request) {
-        request.getSession().setAttribute("userId", id);
-    }
 
-    protected Long getIdFromReqSession(HttpServletRequest request) {
-        return (Long) request.getSession().getAttribute("userId");
+    protected Long getIdFromReqSession() {
+        return Optional.ofNullable(
+                        (CustomUserDetails) SecurityContextHolder.getContext()
+                                .getAuthentication()
+                                .getPrincipal())
+                .map(CustomUserDetails::getId).orElse(null);
     }
 
     protected Long getIdFromDTOList(List<? extends Dto> list, int id) {

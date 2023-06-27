@@ -14,7 +14,6 @@ import ru.kostin.financekeeper.view.api.json.account.AccountDeleteRequest;
 import ru.kostin.financekeeper.view.api.json.account.AccountListResponse;
 import ru.kostin.financekeeper.view.api.json.account.AccountUpdateRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -27,12 +26,9 @@ public class AccountAPIController extends AbstractAPIController {
     private final AccountService accountService;
 
     @GetMapping("/list")
-    public ResponseEntity<AccountListResponse> list(HttpServletRequest request) {
-        Long id = getIdFromReqSession(request);
-        if (id == null) {
-            return status(HttpStatus.UNAUTHORIZED).build();
-        }
-        List<AccountDTO> accounts = accountService.getAll(id);
+    public ResponseEntity<AccountListResponse> list() {
+        Long userId = getIdFromReqSession();
+        List<AccountDTO> accounts = accountService.getAll(userId);
         for (int i = 0; i < accounts.size(); i++) {
             accounts.get(i).setId(i + 1);
         }
@@ -40,14 +36,10 @@ public class AccountAPIController extends AbstractAPIController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<CompletionResponse> add(@RequestBody AccountAddRequest accountAddReq, HttpServletRequest servletReq) {
-        Long id = getIdFromReqSession(servletReq);
-        if (id == null) {
-            return status(HttpStatus.UNAUTHORIZED).build();
-        }
-
+    public ResponseEntity<CompletionResponse> add(@RequestBody AccountAddRequest accountAddReq) {
+        Long userId = getIdFromReqSession();
         try {
-            accountService.add(accountAddReq.getName(), accountAddReq.getBalance(), id);
+            accountService.add(accountAddReq.getName(), accountAddReq.getBalance(), userId);
             return ok(new CompletionResponse(true));
         } catch (ItemAlreadyExistsException | NumberFormatException e) {
             return status(HttpStatus.BAD_REQUEST).body(new CompletionResponse(false));
@@ -55,13 +47,9 @@ public class AccountAPIController extends AbstractAPIController {
     }
 
     @PostMapping("/delete")
-    public ResponseEntity<CompletionResponse> delete(@RequestBody AccountDeleteRequest accountDeleteReq, HttpServletRequest servletReq) {
-        Long id = getIdFromReqSession(servletReq);
-        if (id == null) {
-            return status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        long idToDelete = getIdFromDTOList(accountService.getAll(id), accountDeleteReq.getId());
+    public ResponseEntity<CompletionResponse> delete(@RequestBody AccountDeleteRequest accountDeleteReq) {
+        Long userId = getIdFromReqSession();
+        long idToDelete = getIdFromDTOList(accountService.getAll(userId), accountDeleteReq.getId());
         try {
             accountService.delete(idToDelete);
             return ok(new CompletionResponse(true));
@@ -71,14 +59,11 @@ public class AccountAPIController extends AbstractAPIController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<CompletionResponse> update(@RequestBody AccountUpdateRequest accountUpdateReq, HttpServletRequest servletReq) {
-        Long id = getIdFromReqSession(servletReq);
-        if (id == null) {
-            return status(HttpStatus.UNAUTHORIZED).build();
-        }
-        Long accIdToUpdate = getIdFromDTOList(accountService.getAll(id), accountUpdateReq.getId());
+    public ResponseEntity<CompletionResponse> update(@RequestBody AccountUpdateRequest accountUpdateReq) {
+        Long userId = getIdFromReqSession();
+        Long accIdToUpdate = getIdFromDTOList(accountService.getAll(userId), accountUpdateReq.getId());
         try {
-            accountService.update(accIdToUpdate, accountUpdateReq.getParam(), accountUpdateReq.getVal(), id);
+            accountService.update(accIdToUpdate, accountUpdateReq.getParam(), accountUpdateReq.getVal(), userId);
             return ok(new CompletionResponse(true));
         } catch (ItemNotExistException | ItemAlreadyExistsException | NumberFormatException e) {
             return status(HttpStatus.BAD_REQUEST).build();

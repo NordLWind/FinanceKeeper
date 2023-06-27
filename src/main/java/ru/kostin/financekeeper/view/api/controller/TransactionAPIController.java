@@ -18,7 +18,6 @@ import ru.kostin.financekeeper.view.api.json.transaction.TransactionAddRequest;
 import ru.kostin.financekeeper.view.api.json.transaction.TransactionReportRequest;
 import ru.kostin.financekeeper.view.api.json.transaction.TransactionReportResponse;
 
-import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.List;
@@ -35,11 +34,8 @@ public class TransactionAPIController extends AbstractAPIController {
     private final TypeService typeService;
 
     @PostMapping("/add")
-    public ResponseEntity<CompletionResponse> add(@RequestBody TransactionAddRequest transactionAddReq, HttpServletRequest servletReq) {
-        Long userId = getIdFromReqSession(servletReq);
-        if (userId == null) {
-            return status(HttpStatus.UNAUTHORIZED).build();
-        }
+    public ResponseEntity<CompletionResponse> add(@RequestBody TransactionAddRequest transactionAddReq) {
+        Long userId = getIdFromReqSession();
         List<AccountDTO> accounts = accountService.getAll(userId);
         List<TypeDTO> types = typeService.getAll();
         try {
@@ -59,12 +55,8 @@ public class TransactionAPIController extends AbstractAPIController {
     }
 
     @PostMapping("/report")
-    public ResponseEntity<TransactionReportResponse> getReport(@RequestBody TransactionReportRequest transactionReportReq, HttpServletRequest servletReq) {
-        Long userId = getIdFromReqSession(servletReq);
-        if (userId == null) {
-            return status(HttpStatus.UNAUTHORIZED).build();
-        }
-
+    public ResponseEntity<TransactionReportResponse> getReport(@RequestBody TransactionReportRequest transactionReportReq) {
+        Long userId = getIdFromReqSession();
         try {
             List<TransactionDTO> data = transactionService.getReport(
                     transactionReportReq.getDAfter(),
