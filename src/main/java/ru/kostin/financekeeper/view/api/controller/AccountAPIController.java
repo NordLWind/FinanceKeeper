@@ -27,7 +27,7 @@ public class AccountAPIController extends AbstractAPIController {
 
     @GetMapping("/list")
     public ResponseEntity<AccountListResponse> list() {
-        Long userId = getIdFromReqSession();
+        Long userId = getUserId();
         List<AccountDTO> accounts = accountService.getAll(userId);
         for (int i = 0; i < accounts.size(); i++) {
             accounts.get(i).setId(i + 1);
@@ -37,7 +37,7 @@ public class AccountAPIController extends AbstractAPIController {
 
     @PostMapping("/add")
     public ResponseEntity<CompletionResponse> add(@RequestBody AccountAddRequest accountAddReq) {
-        Long userId = getIdFromReqSession();
+        Long userId = getUserId();
         try {
             accountService.add(accountAddReq.getName(), accountAddReq.getBalance(), userId);
             return ok(new CompletionResponse(true));
@@ -48,7 +48,7 @@ public class AccountAPIController extends AbstractAPIController {
 
     @PostMapping("/delete")
     public ResponseEntity<CompletionResponse> delete(@RequestBody AccountDeleteRequest accountDeleteReq) {
-        Long userId = getIdFromReqSession();
+        Long userId = getUserId();
         long idToDelete = getIdFromDTOList(accountService.getAll(userId), accountDeleteReq.getId());
         try {
             accountService.delete(idToDelete);
@@ -60,7 +60,7 @@ public class AccountAPIController extends AbstractAPIController {
 
     @PostMapping("/update")
     public ResponseEntity<CompletionResponse> update(@RequestBody AccountUpdateRequest accountUpdateReq) {
-        Long userId = getIdFromReqSession();
+        Long userId = getUserId();
         Long accIdToUpdate = getIdFromDTOList(accountService.getAll(userId), accountUpdateReq.getId());
         try {
             accountService.update(accIdToUpdate, accountUpdateReq.getParam(), accountUpdateReq.getVal(), userId);

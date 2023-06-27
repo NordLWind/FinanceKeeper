@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public abstract class AbstractAPIController {
 
-    protected Long getIdFromReqSession() {
+    protected Long getUserId() {
         return Optional.ofNullable(
                         (CustomUserDetails) SecurityContextHolder.getContext()
                                 .getAuthentication()

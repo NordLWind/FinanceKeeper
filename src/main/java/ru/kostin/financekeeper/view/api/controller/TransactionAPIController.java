@@ -26,7 +26,7 @@ import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/transaction")
+@RequestMapping("/api/transaction")
 @RequiredArgsConstructor
 public class TransactionAPIController extends AbstractAPIController {
     private final TransactionService transactionService;
@@ -35,7 +35,7 @@ public class TransactionAPIController extends AbstractAPIController {
 
     @PostMapping("/add")
     public ResponseEntity<CompletionResponse> add(@RequestBody TransactionAddRequest transactionAddReq) {
-        Long userId = getIdFromReqSession();
+        Long userId = getUserId();
         List<AccountDTO> accounts = accountService.getAll(userId);
         List<TypeDTO> types = typeService.getAll();
         try {
@@ -56,7 +56,7 @@ public class TransactionAPIController extends AbstractAPIController {
 
     @PostMapping("/report")
     public ResponseEntity<TransactionReportResponse> getReport(@RequestBody TransactionReportRequest transactionReportReq) {
-        Long userId = getIdFromReqSession();
+        Long userId = getUserId();
         try {
             List<TransactionDTO> data = transactionService.getReport(
                     transactionReportReq.getDAfter(),

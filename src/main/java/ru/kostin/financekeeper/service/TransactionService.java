@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class TransactionService {
+    private static final String DEFAULT_DATE_MARKER = "0";
     private final TransactionRepository transactionRepo;
     private final UserRepository userRepo;
     private final TypeRepository typeRepo;
@@ -37,10 +38,10 @@ public class TransactionService {
 
     public List<TransactionDTO> getReport(String after, String before, long typeId, long userId) throws ParseException {
         TransactionFilter filter = new TransactionFilter();
-        if (!Objects.equals(after, "0")) {
+        if (!Objects.equals(after, DEFAULT_DATE_MARKER)) {
             filter.setAfter(dateFormatter.format(after));
         }
-        if (!Objects.equals(before, "0")) {
+        if (!Objects.equals(before, DEFAULT_DATE_MARKER)) {
             filter.setBefore(dateFormatter.format(before));
         }
         if (typeId != 0) {
@@ -64,7 +65,7 @@ public class TransactionService {
         transaction.setTarget(target);
         transaction.setDescription(description);
         transaction.setOwner(userRepo.findById(userId).orElseThrow(ItemNotExistException::new));
-        transaction.setTime(date.equals("0") ? new Date() : dateFormatter.format(date));
+        transaction.setTime(date.equals(DEFAULT_DATE_MARKER) ? new Date() : dateFormatter.format(date));
         transaction.setTypes(types.stream()
                 .map(l -> typeRepo.findById(l).orElseThrow(ItemNotExistException::new))
                 .collect(Collectors.toList()));
