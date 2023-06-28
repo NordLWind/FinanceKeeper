@@ -52,7 +52,7 @@ public class TransactionService {
         return transactionRepo.getAllByFilter(filter).stream().map(converter::convert).collect(Collectors.toList());
     }
 
-    public void add(long sourceId, long targetId, String amount, String description, String date, long userId, List<Long> types) throws ParseException {
+    public void save(long sourceId, long targetId, String amount, String description, String date, long userId, List<Long> types) throws ParseException {
         Transaction transaction = new Transaction();
         Account source = accountRepo.findById(sourceId).orElseThrow(ItemNotExistException::new);
         Account target = accountRepo.findById(targetId).orElseThrow(ItemNotExistException::new);
@@ -69,7 +69,7 @@ public class TransactionService {
         transaction.setTypes(types.stream()
                 .map(l -> typeRepo.findById(l).orElseThrow(ItemNotExistException::new))
                 .collect(Collectors.toList()));
-        transactionRepo.save(transaction);
+        transactionRepo.saveTransaction(transaction);
     }
 
     private void checkAccounts(Account source, Account target, BigDecimal amount) throws BalanceException {

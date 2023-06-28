@@ -65,7 +65,7 @@ class TransactionAPIControllerTest {
                         new TypeDTO(1L, "testType"))
                 .collect(Collectors.toList()));
 
-        doNothing().when(transactionService).add(
+        doNothing().when(transactionService).save(
                 1L,
                 2L,
                 "200.00",

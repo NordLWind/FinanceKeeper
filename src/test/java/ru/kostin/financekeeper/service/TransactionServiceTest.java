@@ -88,8 +88,8 @@ public class TransactionServiceTest {
         target.setId(2L);
         when(accountRepository.findById(2L)).thenReturn(Optional.of(target));
         when(userRepository.findById(1L)).thenReturn(Optional.of(getTestUser(true)));
-        assertThrows(BalanceException.class, () -> subj.add(1L, 2L, "200", "desc", "0", 1L, new ArrayList<>()));
-        assertThrows(ParseException.class, () -> subj.add(1L, 2L, "10", "desc", "not-a-date", 1L, new ArrayList<>()));
-        assertThrows(SameAccountsException.class, () -> subj.add(1L, 1L, "12", "desc", "0", 1L, new ArrayList<>()));
+        assertThrows(BalanceException.class, () -> subj.save(1L, 2L, "200", "desc", "0", 1L, new ArrayList<>()));
+        assertThrows(ParseException.class, () -> subj.save(1L, 2L, "10", "desc", "not-a-date", 1L, new ArrayList<>()));
+        assertThrows(SameAccountsException.class, () -> subj.save(1L, 1L, "12", "desc", "0", 1L, new ArrayList<>()));
     }
 }

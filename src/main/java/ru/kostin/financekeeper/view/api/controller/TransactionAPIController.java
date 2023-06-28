@@ -39,7 +39,7 @@ public class TransactionAPIController extends AbstractAPIController {
         List<AccountDTO> accounts = accountService.getAll(userId);
         List<TypeDTO> types = typeService.getAll();
         try {
-            transactionService.add(
+            transactionService.save(
                     getIdFromDTOList(accounts, transactionAddReq.getIdSource()),
                     getIdFromDTOList(accounts, transactionAddReq.getIdTarget()),
                     transactionAddReq.getAmount(),
