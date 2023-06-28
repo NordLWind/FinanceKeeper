@@ -13,6 +13,7 @@ import ru.kostin.financekeeper.utils.BalanceFormatter;
 import ru.kostin.financekeeper.utils.ModParam;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,7 @@ public class AccountService {
     }
 
     public List<AccountDTO> getAll(long userId) {
-        return accountRepo.findByOwner_Id(userId).stream().map(converter::convert).collect(Collectors.toList());
+        return accountRepo.findByOwner_Id(userId).stream().sorted(Comparator.comparingLong(Account::getId)).map(converter::convert).collect(Collectors.toList());
     }
 
     public void add(String name, String balance, long userId) {

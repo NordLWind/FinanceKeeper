@@ -7,7 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import ru.kostin.financekeeper.converter.TypeConverter;
 import ru.kostin.financekeeper.dto.TypeDTO;
 import ru.kostin.financekeeper.entity.Type;
 import ru.kostin.financekeeper.exception.ItemAlreadyExistsException;
@@ -29,6 +31,7 @@ import static ru.kostin.financekeeper.service.TestUtils.getTestTypeDTO;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
+@ContextConfiguration(classes = {TypeService.class, TypeConverter.class})
 public class TypeServiceTest {
 
     @Autowired
@@ -52,7 +55,7 @@ public class TypeServiceTest {
         assertThrows(ItemNotExistException.class, () -> subj.get(100));
     }
 
-    @org.junit.Test
+    @Test
     public void getAll() {
         List<Type> test = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -65,7 +68,7 @@ public class TypeServiceTest {
         assertEquals(10, subj.getAll().size());
     }
 
-    @org.junit.Test
+    @Test
     public void save() {
         Type test = getRandomTestType(false);
         when(typeRepository.existsByType(test.getType())).thenReturn(false);
@@ -75,7 +78,7 @@ public class TypeServiceTest {
         verify(typeRepository).save(any());
     }
 
-    @org.junit.Test
+    @Test
     public void update() {
         Type test = getRandomTestType(true);
         when(typeRepository.findById(test.getId())).thenReturn(of(test));

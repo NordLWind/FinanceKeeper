@@ -9,6 +9,10 @@ import ru.kostin.financekeeper.entity.User;
 import ru.kostin.financekeeper.exception.ItemAlreadyExistsException;
 import ru.kostin.financekeeper.exception.ItemNotExistException;
 import ru.kostin.financekeeper.repository.UserRepository;
+import ru.kostin.financekeeper.security.Role;
+
+import java.util.Collections;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +25,7 @@ public class UserService {
         return converter.convert(userRepo.findById(id).orElseThrow(ItemNotExistException::new));
     }
 
-    public void add(String name, String email, String password) {
+    public void add(String name, String email, String password, Set<Role> roles) {
         if (userRepo.existsByEmail(email)) {
             throw new ItemAlreadyExistsException();
         }
@@ -29,7 +33,12 @@ public class UserService {
         user.setName(name);
         user.setEmail(email);
         user.setPassword(encoder.encode(password));
+        user.setRoles(roles);
         userRepo.save(user);
+    }
+
+    public void add(String name, String email, String password) {
+        add(name, email, password, Collections.singleton(Role.USER));
     }
 
     public UserDTO auth(String email, String password) {

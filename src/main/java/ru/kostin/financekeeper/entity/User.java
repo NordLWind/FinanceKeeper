@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
+import ru.kostin.financekeeper.security.Role;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -34,6 +36,12 @@ public class User {
 
     @OneToMany(mappedBy = "owner")
     List<Transaction> transactions;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_roles")
+    @Column(name = "role")
+    Set<Role> roles;
 
     @Override
     public boolean equals(Object o) {
