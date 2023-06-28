@@ -84,7 +84,7 @@ class AccountServiceTest {
         when(accountRepository.existsByNameAndOwner_Id("test", 1L)).thenReturn(false);
         when(formatter.format("213.00")).thenReturn(new BigDecimal("213.00"));
 
-        subj.add("test", "213.00", 1L);
+        subj.save("test", "213.00", 1L);
 
         verify(accountRepository).save(any());
     }
@@ -92,7 +92,7 @@ class AccountServiceTest {
     @Test
     void add_alreadyExists() {
         when(accountRepository.existsByNameAndOwner_Id("exists", 1L)).thenReturn(true);
-        assertThrows(ItemAlreadyExistsException.class, () -> subj.add("exists", "smth", 1L));
+        assertThrows(ItemAlreadyExistsException.class, () -> subj.save("exists", "smth", 1L));
     }
 
     @Test
@@ -101,7 +101,7 @@ class AccountServiceTest {
         when(accountRepository.existsByNameAndOwner_Id("wrong", 1L)).thenReturn(false);
         doThrow(NumberFormatException.class).when(formatter).format("wrong_bal");
 
-        assertThrows(NumberFormatException.class, () -> subj.add("wrong", "wrong_bal", 1L));
+        assertThrows(NumberFormatException.class, () -> subj.save("wrong", "wrong_bal", 1L));
     }
 
     @Test

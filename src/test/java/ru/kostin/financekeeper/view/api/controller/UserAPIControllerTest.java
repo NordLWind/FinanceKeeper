@@ -38,7 +38,7 @@ class UserAPIControllerTest {
 
     @Test
     void add() throws Exception {
-        doNothing().when(userService).add("test", "test@t", "password");
+        doNothing().when(userService).save("test", "test@t", "password");
 
         AddUserRequest request = new AddUserRequest();
         request.setName("test");
@@ -50,6 +50,6 @@ class UserAPIControllerTest {
                         .content(om.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(content().json(om.writeValueAsString(new CompletionResponse(true))));
-        verify(userService).add("test", "test@t", "password");
+        verify(userService).save("test", "test@t", "password");
     }
 }

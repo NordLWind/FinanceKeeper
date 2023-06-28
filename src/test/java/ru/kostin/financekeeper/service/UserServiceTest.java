@@ -55,10 +55,10 @@ class UserServiceTest {
     @Test
     void add() {
         when(userRepository.existsByEmail("newEmail")).thenReturn(false);
-        subj.add("newName", "newEmail", "password");
+        subj.save("newName", "newEmail", "password");
         verify(userRepository).save(any());
         when(userRepository.existsByEmail("existingEmail")).thenReturn(true);
-        assertThrows(ItemAlreadyExistsException.class, () -> subj.add("name", "existingEmail", "password"));
+        assertThrows(ItemAlreadyExistsException.class, () -> subj.save("name", "existingEmail", "password"));
 
     }
 
