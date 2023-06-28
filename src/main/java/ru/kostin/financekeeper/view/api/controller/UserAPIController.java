@@ -3,11 +3,6 @@ package ru.kostin.financekeeper.view.api.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +13,9 @@ import ru.kostin.financekeeper.view.api.json.CompletionResponse;
 import ru.kostin.financekeeper.view.api.json.user.AddUserRequest;
 import ru.kostin.financekeeper.view.api.json.user.AuthRequest;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
 import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
 
@@ -25,19 +23,16 @@ import static org.springframework.http.ResponseEntity.status;
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserAPIController extends AbstractAPIController {
-    private final AuthenticationManager authenticationManager;
     private final UserService userService;
 
-    @PostMapping("/login")
-    public ResponseEntity<CompletionResponse> authenticateUser(@RequestBody AuthRequest authRequest) {
+    @PostMapping("/auth")
+    public ResponseEntity<CompletionResponse> auth(AuthRequest authRequest, HttpServletRequest servletRequest) {
         try {
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            servletRequest.login(authRequest.getEmail(), authRequest.getPassword());
             return ok(new CompletionResponse(true));
-        } catch (AuthenticationException e) {
+        } catch (ServletException e) {
             return status(HttpStatus.UNAUTHORIZED).build();
         }
-
     }
 
     @PostMapping("/register")
