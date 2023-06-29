@@ -1,4 +1,4 @@
-package ru.kostin.financekeeper.view.api.controller;
+package ru.kostin.financekeeper.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -11,15 +11,16 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import ru.kostin.financekeeper.api.controller.AccountAPIController;
 import ru.kostin.financekeeper.dto.AccountDTO;
 import ru.kostin.financekeeper.security.MockSecurityConfiguration;
 import ru.kostin.financekeeper.security.SecurityConfiguration;
 import ru.kostin.financekeeper.service.AccountService;
 import ru.kostin.financekeeper.utils.ModParam;
-import ru.kostin.financekeeper.view.api.json.CompletionResponse;
-import ru.kostin.financekeeper.view.api.json.account.AccountAddRequest;
-import ru.kostin.financekeeper.view.api.json.account.AccountDeleteRequest;
-import ru.kostin.financekeeper.view.api.json.account.AccountUpdateRequest;
+import ru.kostin.financekeeper.api.json.CompletionResponse;
+import ru.kostin.financekeeper.api.json.account.AccountAddRequest;
+import ru.kostin.financekeeper.api.json.account.AccountDeleteRequest;
+import ru.kostin.financekeeper.api.json.account.AccountUpdateRequest;
 
 import java.math.BigDecimal;
 import java.util.List;

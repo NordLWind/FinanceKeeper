@@ -1,4 +1,4 @@
-package ru.kostin.financekeeper.view.api.json.user;
+package ru.kostin.financekeeper.api.json.user;
 
 import lombok.Data;
 

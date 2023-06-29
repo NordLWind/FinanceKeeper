@@ -1,4 +1,4 @@
-package ru.kostin.financekeeper.view.api.controller;
+package ru.kostin.financekeeper.api.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -7,16 +7,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.kostin.financekeeper.api.json.CompletionResponse;
+import ru.kostin.financekeeper.api.json.transaction.TransactionAddRequest;
+import ru.kostin.financekeeper.api.json.transaction.TransactionReportRequest;
+import ru.kostin.financekeeper.api.json.transaction.TransactionReportResponse;
 import ru.kostin.financekeeper.dto.AccountDTO;
 import ru.kostin.financekeeper.dto.TransactionDTO;
 import ru.kostin.financekeeper.dto.TypeDTO;
 import ru.kostin.financekeeper.service.AccountService;
 import ru.kostin.financekeeper.service.TransactionService;
 import ru.kostin.financekeeper.service.TypeService;
-import ru.kostin.financekeeper.view.api.json.CompletionResponse;
-import ru.kostin.financekeeper.view.api.json.transaction.TransactionAddRequest;
-import ru.kostin.financekeeper.view.api.json.transaction.TransactionReportRequest;
-import ru.kostin.financekeeper.view.api.json.transaction.TransactionReportResponse;
 
 import java.text.ParseException;
 import java.util.Collections;

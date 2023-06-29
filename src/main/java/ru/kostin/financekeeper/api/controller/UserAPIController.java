@@ -1,4 +1,4 @@
-package ru.kostin.financekeeper.view.api.controller;
+package ru.kostin.financekeeper.api.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.kostin.financekeeper.api.json.CompletionResponse;
+import ru.kostin.financekeeper.api.json.user.AddUserRequest;
 import ru.kostin.financekeeper.exception.ItemAlreadyExistsException;
 import ru.kostin.financekeeper.service.UserService;
-import ru.kostin.financekeeper.view.api.json.CompletionResponse;
-import ru.kostin.financekeeper.view.api.json.user.AddUserRequest;
 
 import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;

@@ -1,4 +1,4 @@
-package ru.kostin.financekeeper.view.api.json.type;
+package ru.kostin.financekeeper.api.json.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package ru.kostin.financekeeper.view.api.controller;
+package ru.kostin.financekeeper.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -10,11 +10,12 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import ru.kostin.financekeeper.api.controller.UserAPIController;
 import ru.kostin.financekeeper.security.MockSecurityConfiguration;
 import ru.kostin.financekeeper.security.SecurityConfiguration;
 import ru.kostin.financekeeper.service.UserService;
-import ru.kostin.financekeeper.view.api.json.CompletionResponse;
-import ru.kostin.financekeeper.view.api.json.user.AddUserRequest;
+import ru.kostin.financekeeper.api.json.CompletionResponse;
+import ru.kostin.financekeeper.api.json.user.AddUserRequest;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;

@@ -1,4 +1,4 @@
-package ru.kostin.financekeeper.view.api.controller;
+package ru.kostin.financekeeper.api.controller;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import ru.kostin.financekeeper.dto.Dto;

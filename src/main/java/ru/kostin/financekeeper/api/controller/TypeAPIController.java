@@ -1,18 +1,18 @@
-package ru.kostin.financekeeper.view.api.controller;
+package ru.kostin.financekeeper.api.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.kostin.financekeeper.api.json.CompletionResponse;
+import ru.kostin.financekeeper.api.json.type.TypeAddRequest;
+import ru.kostin.financekeeper.api.json.type.TypeDeleteRequest;
+import ru.kostin.financekeeper.api.json.type.TypeListResponse;
+import ru.kostin.financekeeper.api.json.type.TypeUpdateRequest;
 import ru.kostin.financekeeper.dto.TypeDTO;
 import ru.kostin.financekeeper.exception.ItemAlreadyExistsException;
 import ru.kostin.financekeeper.exception.ItemNotExistException;
 import ru.kostin.financekeeper.service.TypeService;
-import ru.kostin.financekeeper.view.api.json.CompletionResponse;
-import ru.kostin.financekeeper.view.api.json.type.TypeAddRequest;
-import ru.kostin.financekeeper.view.api.json.type.TypeDeleteRequest;
-import ru.kostin.financekeeper.view.api.json.type.TypeListResponse;
-import ru.kostin.financekeeper.view.api.json.type.TypeUpdateRequest;
 
 import java.util.List;
 

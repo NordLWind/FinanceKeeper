@@ -1,18 +1,18 @@
-package ru.kostin.financekeeper.view.api.controller;
+package ru.kostin.financekeeper.api.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.kostin.financekeeper.api.json.CompletionResponse;
+import ru.kostin.financekeeper.api.json.account.AccountAddRequest;
+import ru.kostin.financekeeper.api.json.account.AccountDeleteRequest;
+import ru.kostin.financekeeper.api.json.account.AccountListResponse;
+import ru.kostin.financekeeper.api.json.account.AccountUpdateRequest;
 import ru.kostin.financekeeper.dto.AccountDTO;
 import ru.kostin.financekeeper.exception.ItemAlreadyExistsException;
 import ru.kostin.financekeeper.exception.ItemNotExistException;
 import ru.kostin.financekeeper.service.AccountService;
-import ru.kostin.financekeeper.view.api.json.CompletionResponse;
-import ru.kostin.financekeeper.view.api.json.account.AccountAddRequest;
-import ru.kostin.financekeeper.view.api.json.account.AccountDeleteRequest;
-import ru.kostin.financekeeper.view.api.json.account.AccountListResponse;
-import ru.kostin.financekeeper.view.api.json.account.AccountUpdateRequest;
 
 import java.util.List;
 
