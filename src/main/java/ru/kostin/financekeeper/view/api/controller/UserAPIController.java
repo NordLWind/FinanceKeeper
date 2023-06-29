@@ -24,7 +24,7 @@ public class UserAPIController extends AbstractAPIController {
     @PostMapping("/register")
     public ResponseEntity<CompletionResponse> add(@RequestBody AddUserRequest req) {
         try {
-            userService.add(req.getName(), req.getEmail(), req.getPassword());
+            userService.save(req.getName(), req.getEmail(), req.getPassword());
             return ok(new CompletionResponse(true));
         } catch (ItemAlreadyExistsException e) {
             return status(HttpStatus.BAD_REQUEST).body(new CompletionResponse(false));

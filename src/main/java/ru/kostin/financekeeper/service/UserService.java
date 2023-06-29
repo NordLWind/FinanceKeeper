@@ -25,7 +25,7 @@ public class UserService {
         return converter.convert(userRepo.findById(id).orElseThrow(ItemNotExistException::new));
     }
 
-    public void add(String name, String email, String password, Set<Role> roles) {
+    public void save(String name, String email, String password, Set<Role> roles) {
         if (userRepo.existsByEmail(email)) {
             throw new ItemAlreadyExistsException();
         }
@@ -37,8 +37,8 @@ public class UserService {
         userRepo.save(user);
     }
 
-    public void add(String name, String email, String password) {
-        add(name, email, password, Collections.singleton(Role.USER));
+    public void save(String name, String email, String password) {
+        save(name, email, password, Collections.singleton(Role.USER));
     }
 
     public UserDTO auth(String email, String password) {

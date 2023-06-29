@@ -33,7 +33,7 @@ public class AccountService {
         return accountRepo.findByOwner_Id(userId).stream().sorted(Comparator.comparingLong(Account::getId)).map(converter::convert).collect(Collectors.toList());
     }
 
-    public void add(String name, String balance, long userId) {
+    public void save(String name, String balance, long userId) {
         if (accountRepo.existsByNameAndOwner_Id(name, userId)) {
             throw new ItemAlreadyExistsException();
         }

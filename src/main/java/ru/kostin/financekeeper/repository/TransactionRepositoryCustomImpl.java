@@ -1,6 +1,7 @@
 package ru.kostin.financekeeper.repository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kostin.financekeeper.entity.Transaction;
 import ru.kostin.financekeeper.utils.TransactionFilter;
 
@@ -36,5 +37,13 @@ public class TransactionRepositoryCustomImpl implements TransactionRepositoryCus
             typedQuery.setParameter(entry.getKey(), entry.getValue());
         }
         return typedQuery.getResultList();
+    }
+
+    @Transactional
+    @Override
+    public void saveTransaction(Transaction model) {
+        em.merge(model.getSource());
+        em.merge(model.getTarget());
+        em.persist(model);
     }
 }

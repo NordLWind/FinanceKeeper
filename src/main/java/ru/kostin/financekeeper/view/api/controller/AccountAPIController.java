@@ -39,7 +39,7 @@ public class AccountAPIController extends AbstractAPIController {
     public ResponseEntity<CompletionResponse> add(@RequestBody AccountAddRequest accountAddReq) {
         Long userId = getUserId();
         try {
-            accountService.add(accountAddReq.getName(), accountAddReq.getBalance(), userId);
+            accountService.save(accountAddReq.getName(), accountAddReq.getBalance(), userId);
             return ok(new CompletionResponse(true));
         } catch (ItemAlreadyExistsException | NumberFormatException e) {
             return status(HttpStatus.BAD_REQUEST).body(new CompletionResponse(false));

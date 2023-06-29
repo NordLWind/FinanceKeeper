@@ -67,7 +67,7 @@ class AccountAPIControllerTest {
         request.setName("test");
         request.setBalance("100.00");
 
-        doNothing().when(accountService).add("test", "100.00", 1L);
+        doNothing().when(accountService).save("test", "100.00", 1L);
 
         mockMvc.perform(post("/api/account/add")
                 .contentType(MediaType.APPLICATION_JSON)
