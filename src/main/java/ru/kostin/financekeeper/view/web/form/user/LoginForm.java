@@ -1,4 +1,4 @@
-package ru.kostin.financekeeper.view.web.form;
+package ru.kostin.financekeeper.view.web.form.user;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package ru.kostin.financekeeper.view.web;
+package ru.kostin.financekeeper.view.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.kostin.financekeeper.exception.ItemAlreadyExistsException;
 import ru.kostin.financekeeper.service.UserService;
-import ru.kostin.financekeeper.view.web.form.LoginForm;
-import ru.kostin.financekeeper.view.web.form.UserAddForm;
+import ru.kostin.financekeeper.view.web.form.user.LoginForm;
+import ru.kostin.financekeeper.view.web.form.user.UserAddForm;
 
 import javax.validation.Valid;
 

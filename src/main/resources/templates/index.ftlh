@@ -14,15 +14,34 @@
 <div class="row">
     <div class="col-md-3">.col-md-3</div>
     <div class="col-md-6">
-        <div class="list-group list-group-light">
-            <a href="#" class="list-group-item list-group-item-action px-3 border-0 active ripple"
-               aria-current="true">The current link item with a ripple</a>
-            <a href="#" class="list-group-item list-group-item-action px-3 border-0 ripple">A second link item with
-                a ripple</a>
-            <a href="#" class="list-group-item list-group-item-action px-3 border-0 ripple">A third link item with
-                a ripple</a>
-            <a href="#" class="list-group-item list-group-item-action px-3 border-0 ripple">A fourth link item with
-                a ripple</a>
+        <div class="list-group">
+
+            <div class="btn-group">
+                <button class="btn btn-primary btn-lg" role="button" type="button" data-toggle="dropdown"
+                        aria-expanded="false">
+                    <a href="/account-menu" class="list-group-item list-group-item-action">Управление счетами</a>
+                </button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary btn-lg" type="button" data-toggle="dropdown" aria-expanded="false">
+                    <a href="/transaction/create" class="list-group-item list-group-item-action">Создать транзакцию</a>
+                </button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary btn-lg" type="button" data-toggle="dropdown" aria-expanded="false">
+                    <a href="/report" class="list-group-item list-group-item-action">Получить отчет</a>
+                </button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary btn-lg " type="button" data-toggle="dropdown" aria-expanded="false">
+                    <a href="/type-menu" class="list-group-item list-group-item-action">Управление типами транзакций</a>
+                </button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary btn-lg " type="button" data-toggle="dropdown" aria-expanded="false">
+                    <a href="/logout" class="list-group-item list-group-item-action">Выйти</a>
+                </button>
+            </div>
         </div>
     </div>
     <div class="col-md-3">.col-md-3</div>
