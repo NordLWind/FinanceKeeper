@@ -13,11 +13,15 @@ import ru.kostin.financekeeper.exception.BalanceException;
 import ru.kostin.financekeeper.exception.ItemAlreadyExistsException;
 import ru.kostin.financekeeper.exception.ItemNotExistException;
 import ru.kostin.financekeeper.service.AccountService;
+import ru.kostin.financekeeper.utils.ModParam;
 import ru.kostin.financekeeper.view.web.form.account.AccountAddForm;
 import ru.kostin.financekeeper.view.web.form.account.AccountDeleteForm;
+import ru.kostin.financekeeper.view.web.form.account.AccountUpdateForm;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -51,14 +55,40 @@ public class AccountController extends AbstractController {
         }
     }
 
+    @GetMapping("/account/update")
+    public String updAccountPost(Model model) {
+        model.addAttribute("form", new AccountUpdateForm());
+        model.addAttribute("accounts", getAccounts());
+        model.addAttribute("param", Arrays.asList(ModParam.NAME, ModParam.BALANCE));
+        return "account-update";
+    }
+
+    @PostMapping("/account/update")
+    public String updAccountPost(@Valid @ModelAttribute("form") AccountUpdateForm form, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("form", form);
+            return "account-update";
+        }
+
+        try {
+            ModParam param = ModParam.valueOf(form.getParam());
+            accountService.update(getIdFromDTOList(accountService.getAll(getUserId()), form.getId()), param, form.getVal(), getUserId());
+            return "redirect:/";
+        } catch (ItemAlreadyExistsException e) {
+            result.addError(new FieldError("form", "value", "Такой аккаунт уже есть!"));
+            model.addAttribute("form", form);
+            return "account-update";
+        } catch (NumberFormatException e) {
+            result.addError(new FieldError("form", "value", "Некорректный баланс!"));
+            model.addAttribute("form", form);
+            return "account-update";
+        }
+    }
+
     @GetMapping("/account/delete")
     public String delAccountGet(Model model) {
         model.addAttribute("form", new AccountDeleteForm());
-        List<AccountDTO> accounts = accountService.getAll(getUserId());
-        for (int i = 0; i < accounts.size(); i++) {
-            accounts.get(i).setId(i + 1);
-        }
-        model.addAttribute("accounts", accounts.stream().map(a -> (a.getId() + ". " + a.getName() + ": " + a.getBalance())));
+        model.addAttribute("accounts", getAccounts());
         return "account-delete";
     }
 
@@ -77,5 +107,15 @@ public class AccountController extends AbstractController {
             model.addAttribute("form", form);
             return "account-delete";
         }
+    }
+
+    private List<String> getAccounts() {
+        List<AccountDTO> accounts = accountService.getAll(getUserId());
+        for (int i = 0; i < accounts.size(); i++) {
+            accounts.get(i).setId(i + 1);
+        }
+        return accounts.stream()
+                .map(a -> (a.getId() + ". " + a.getName() + ": " + a.getBalance()))
+                .collect(Collectors.toList());
     }
 }
