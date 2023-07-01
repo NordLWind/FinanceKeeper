@@ -1,4 +1,4 @@
-package ru.kostin.financekeeper.utils;
+package ru.kostin.financekeeper.utils.format;
 
 import org.springframework.stereotype.Service;
 

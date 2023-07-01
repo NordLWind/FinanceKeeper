@@ -28,6 +28,12 @@ import java.util.stream.Collectors;
 public class AccountController extends AbstractController {
     private final AccountService accountService;
 
+    @GetMapping("/account/list")
+    public String getAll(Model model) {
+        model.addAttribute("options", getAccounts());
+        return "list-template";
+    }
+
     @GetMapping("/account/add")
     public String addAccountGet(Model model) {
         model.addAttribute("form", new AccountAddForm());
@@ -43,7 +49,7 @@ public class AccountController extends AbstractController {
 
         try {
             accountService.save(form.getName(), form.getBalance(), getUserId());
-            return "redirect:/";
+            return "redirect:/account/menu";
         } catch (ItemAlreadyExistsException e) {
             result.addError(new FieldError("form", "name", "Аккаунт с таким именем у Вас уже есть!"));
             model.addAttribute("form", form);

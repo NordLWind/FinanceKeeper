@@ -9,7 +9,7 @@ import ru.kostin.financekeeper.exception.ItemAlreadyExistsException;
 import ru.kostin.financekeeper.exception.ItemNotExistException;
 import ru.kostin.financekeeper.repository.AccountRepository;
 import ru.kostin.financekeeper.repository.UserRepository;
-import ru.kostin.financekeeper.utils.BalanceFormatter;
+import ru.kostin.financekeeper.utils.format.BalanceFormatter;
 import ru.kostin.financekeeper.utils.ModParam;
 
 import java.math.BigDecimal;

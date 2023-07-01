@@ -1,4 +1,4 @@
-package ru.kostin.financekeeper.utils;
+package ru.kostin.financekeeper.utils.format;
 
 import org.springframework.stereotype.Service;
 
@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Service
 public class DateFormatterImpl implements DateFormatter {
-    private static final String DATE_PATTERN = "yyyy-MM-dd hh:mm";
+    private static final String DATE_PATTERN = "dd-MM-yyyy";
 
     @Override
     public Date format(String rawDate) throws ParseException {

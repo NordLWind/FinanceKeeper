@@ -15,6 +15,7 @@ public class TransactionConverter implements Converter<Transaction, TransactionD
         dto.setTarget(source.getTarget().getName());
         dto.setAmount(source.getAmount().toString());
         dto.setDescription(source.getDescription());
+        dto.setDate(source.getTime().toString());
         return dto;
     }
 }

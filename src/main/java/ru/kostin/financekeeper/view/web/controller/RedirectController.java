@@ -10,4 +10,9 @@ public class RedirectController {
     public String getMainMenu() {
         return "index";
     }
+
+    @GetMapping("/account/menu")
+    public String getAccountMenu() {
+        return "account-menu";
+    }
 }
