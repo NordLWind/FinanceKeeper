@@ -104,7 +104,7 @@ public class AccountController extends AbstractController {
 
         try {
             accountService.delete(getIdFromDTOList(accountService.getAll(getUserId()), Integer.parseInt(form.getAccount().split("\\.")[0])));
-            return "redirect:/";
+            return "redirect:/account/menu";
         } catch (ItemNotExistException e) {
             result.addError(new FieldError("form", "account", "Нет такого аккаунта!"));
             model.addAttribute("form", form);
