@@ -41,9 +41,12 @@ public class TransactionController extends AbstractController {
             model.addAttribute("form", form);
             return "report";
         }
-
         try {
-            List<TransactionDTO> data = transactionService.getReport(form.getAfter(), form.getBefore(), 0, getUserId());
+            List<TransactionDTO> data = transactionService.getReport(
+                    format(form.getAfter()),
+                    format(form.getBefore()),
+                    0,
+                    getUserId());
             for (int i = 0; i < data.size(); i++) {
                 data.get(i).setId(i + 1);
             }
@@ -88,5 +91,10 @@ public class TransactionController extends AbstractController {
             return "transaction-add";
         }
         return "redirect:/";
+    }
+
+    private String format(String rawDate) {
+        String[] parts = rawDate.split("T");
+        return parts[0] + " " + parts[1];
     }
 }

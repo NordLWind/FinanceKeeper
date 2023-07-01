@@ -13,7 +13,6 @@ import ru.kostin.financekeeper.dto.AccountDTO;
 import ru.kostin.financekeeper.security.MockSecurityConfiguration;
 import ru.kostin.financekeeper.security.SecurityConfiguration;
 import ru.kostin.financekeeper.service.AccountService;
-import ru.kostin.financekeeper.web.controller.AccountController;
 import ru.kostin.financekeeper.web.form.account.AccountAddForm;
 import ru.kostin.financekeeper.web.form.account.AccountDeleteForm;
 

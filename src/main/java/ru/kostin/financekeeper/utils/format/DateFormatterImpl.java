@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Service
 public class DateFormatterImpl implements DateFormatter {
-    private static final String DATE_PATTERN = "dd-MM-yyyy";
+    private static final String DATE_PATTERN = "dd-MM-yyyy hh:mm";
 
     @Override
     public Date format(String rawDate) throws ParseException {
