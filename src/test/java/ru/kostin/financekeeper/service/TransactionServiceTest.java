@@ -71,15 +71,15 @@ public class TransactionServiceTest {
         Type filterType = getRandomTestType(true);
         filter.setType(filterType);
         filter.setOwner(owner);
-        filter.setBefore(getDate("2023-12-31"));
-        filter.setAfter(getDate("2022-12-31"));
+        filter.setBefore(getDate("2023-12-31 12:00"));
+        filter.setAfter(getDate("2022-12-31 10:00"));
         when(typeRepository.findById(filterType.getId())).thenReturn(Optional.of(filterType));
         when(userRepository.findById(1L)).thenReturn(Optional.of(owner));
         when(transactionRepository.getAllByFilter(any())).thenReturn(getList());
         when(converter.convert(any())).thenReturn(new TransactionDTO());
 
         ArgumentCaptor<TransactionFilter> argumentCaptor = ArgumentCaptor.forClass(TransactionFilter.class);
-        subj.getReport("31-12-2022 10:00", "31-12-2023 10:00", filterType.getId(), 1L);
+        subj.getReport("31-12-2022 10:00", "31-12-2023 12:00", filterType.getId(), 1L);
         verify(transactionRepository).getAllByFilter(argumentCaptor.capture());
         assertEquals(filter, argumentCaptor.getValue());
 
