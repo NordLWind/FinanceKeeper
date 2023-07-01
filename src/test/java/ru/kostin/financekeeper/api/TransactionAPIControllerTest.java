@@ -104,14 +104,16 @@ class TransactionAPIControllerTest {
                         "test",
                         "testT",
                         "200.00",
-                        "description"
+                        "description",
+                        "some_date"
                 ),
                 new TransactionDTO(
                         2L,
                         "test2",
                         "test2T",
                         "100.00",
-                        "description2"
+                        "description2",
+                        "some_date"
                 )
         ).collect(Collectors.toList());
 
