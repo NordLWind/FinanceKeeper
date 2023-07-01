@@ -14,7 +14,7 @@
 </header>
 <div class="container">
     <div class="row">
-        <div class="col-sm"></div>
+        <div class="col-md"></div>
         <div class="col-sm">
             <div class="list-group">
                 <div class="btn-group">
@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm"></div>
+        <div class="col-md"></div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

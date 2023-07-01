@@ -25,7 +25,7 @@
         <div class="btn-group">
             <button class="btn btn-primary btn-lg" role="button" type="button" data-toggle="dropdown"
                     aria-expanded="false">
-                <a href="/account-menu" class="list-group-item list-group-item-action">Назад</a>
+                <a href="/index" class="list-group-item list-group-item-action">Назад</a>
             </button>
         </div>
     </div>
