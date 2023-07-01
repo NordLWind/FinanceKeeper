@@ -15,4 +15,9 @@ public class RedirectController {
     public String getAccountMenu() {
         return "account-menu";
     }
+
+    @GetMapping("/type/menu")
+    public String getTypeMenu() {
+        return "type-menu";
+    }
 }
