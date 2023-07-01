@@ -8,7 +8,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.kostin.financekeeper.dto.TypeDTO;
 import ru.kostin.financekeeper.exception.ItemAlreadyExistsException;
 import ru.kostin.financekeeper.exception.ItemNotExistException;
 import ru.kostin.financekeeper.service.TypeService;
@@ -16,8 +15,6 @@ import ru.kostin.financekeeper.view.web.form.type.TypeAddForm;
 import ru.kostin.financekeeper.view.web.form.type.TypeDeleteForm;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,7 +23,7 @@ public class TypeController extends AbstractController {
 
     @GetMapping("/type/list")
     public String getAll(Model model) {
-        model.addAttribute("options", getTypesForPrint());
+        model.addAttribute("options", getTypesForPrint(typeService));
         return "list-template";
     }
 
@@ -55,7 +52,7 @@ public class TypeController extends AbstractController {
     @GetMapping("/type/delete")
     public String getTypeDel(Model model) {
         model.addAttribute("form", new TypeDeleteForm());
-        model.addAttribute("options", getTypesForPrint());
+        model.addAttribute("options", getTypesForPrint(typeService));
         return "type-delete";
     }
 
@@ -73,14 +70,5 @@ public class TypeController extends AbstractController {
             model.addAttribute("form");
             return "type-delete";
         }
-    }
-
-    private List<String> getTypesForPrint() {
-
-        List<TypeDTO> data = typeService.getAll();
-        for (int i = 0; i < data.size(); i++) {
-            data.get(i).setId(i + 1);
-        }
-        return data.stream().map(t -> t.getId() + ". " + t.getType()).collect(Collectors.toList());
     }
 }

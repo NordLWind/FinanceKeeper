@@ -8,7 +8,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.kostin.financekeeper.dto.AccountDTO;
 import ru.kostin.financekeeper.exception.BalanceException;
 import ru.kostin.financekeeper.exception.ItemAlreadyExistsException;
 import ru.kostin.financekeeper.exception.ItemNotExistException;
@@ -20,8 +19,6 @@ import ru.kostin.financekeeper.view.web.form.account.AccountUpdateForm;
 
 import javax.validation.Valid;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,7 +27,7 @@ public class AccountController extends AbstractController {
 
     @GetMapping("/account/list")
     public String getAll(Model model) {
-        model.addAttribute("options", getAccounts());
+        model.addAttribute("options", getAccountsForPrint(accountService));
         return "list-template";
     }
 
@@ -64,7 +61,7 @@ public class AccountController extends AbstractController {
     @GetMapping("/account/update")
     public String updAccountPost(Model model) {
         model.addAttribute("form", new AccountUpdateForm());
-        model.addAttribute("accounts", getAccounts());
+        model.addAttribute("accounts", getAccountsForPrint(accountService));
         model.addAttribute("param", Arrays.asList(ModParam.NAME, ModParam.BALANCE));
         return "account-update";
     }
@@ -94,7 +91,7 @@ public class AccountController extends AbstractController {
     @GetMapping("/account/delete")
     public String delAccountGet(Model model) {
         model.addAttribute("form", new AccountDeleteForm());
-        model.addAttribute("accounts", getAccounts());
+        model.addAttribute("accounts", getAccountsForPrint(accountService));
         return "account-delete";
     }
 
@@ -113,15 +110,5 @@ public class AccountController extends AbstractController {
             model.addAttribute("form", form);
             return "account-delete";
         }
-    }
-
-    private List<String> getAccounts() {
-        List<AccountDTO> accounts = accountService.getAll(getUserId());
-        for (int i = 0; i < accounts.size(); i++) {
-            accounts.get(i).setId(i + 1);
-        }
-        return accounts.stream()
-                .map(a -> (a.getId() + ". " + a.getName() + ": " + a.getBalance()))
-                .collect(Collectors.toList());
     }
 }
