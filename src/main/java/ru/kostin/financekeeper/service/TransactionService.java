@@ -13,8 +13,8 @@ import ru.kostin.financekeeper.repository.AccountRepository;
 import ru.kostin.financekeeper.repository.TransactionRepository;
 import ru.kostin.financekeeper.repository.TypeRepository;
 import ru.kostin.financekeeper.repository.UserRepository;
-import ru.kostin.financekeeper.utils.BalanceFormatter;
-import ru.kostin.financekeeper.utils.DateFormatter;
+import ru.kostin.financekeeper.utils.format.BalanceFormatter;
+import ru.kostin.financekeeper.utils.format.DateFormatter;
 import ru.kostin.financekeeper.utils.TransactionFilter;
 
 import java.math.BigDecimal;
@@ -35,6 +35,10 @@ public class TransactionService {
     private final Converter<Transaction, TransactionDTO> converter;
     private final BalanceFormatter balanceFormatter;
     private final DateFormatter dateFormatter;
+
+    public List<TransactionDTO> getAll(Long userId) {
+        return transactionRepo.findByOwner_Id(userId).stream().map(converter::convert).collect(Collectors.toList());
+    }
 
     public List<TransactionDTO> getReport(String after, String before, long typeId, long userId) throws ParseException {
         TransactionFilter filter = new TransactionFilter();
