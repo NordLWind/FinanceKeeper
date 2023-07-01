@@ -21,6 +21,10 @@ import ru.kostin.financekeeper.repository.TransactionRepository;
 import ru.kostin.financekeeper.repository.TypeRepository;
 import ru.kostin.financekeeper.repository.UserRepository;
 import ru.kostin.financekeeper.utils.*;
+import ru.kostin.financekeeper.utils.format.BalanceFormatter;
+import ru.kostin.financekeeper.utils.format.BalanceFormatterImpl;
+import ru.kostin.financekeeper.utils.format.DateFormatter;
+import ru.kostin.financekeeper.utils.format.DateFormatterImpl;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -67,15 +71,15 @@ public class TransactionServiceTest {
         Type filterType = getRandomTestType(true);
         filter.setType(filterType);
         filter.setOwner(owner);
-        filter.setBefore(getDate("2023-12-31 10:00"));
-        filter.setAfter(getDate("2022-12-31 10:00"));
+        filter.setBefore(getDate("2023-12-31"));
+        filter.setAfter(getDate("2022-12-31"));
         when(typeRepository.findById(filterType.getId())).thenReturn(Optional.of(filterType));
         when(userRepository.findById(1L)).thenReturn(Optional.of(owner));
         when(transactionRepository.getAllByFilter(any())).thenReturn(getList());
         when(converter.convert(any())).thenReturn(new TransactionDTO());
 
         ArgumentCaptor<TransactionFilter> argumentCaptor = ArgumentCaptor.forClass(TransactionFilter.class);
-        subj.getReport("2022-12-31 10:00", "2023-12-31 10:00", filterType.getId(), 1L);
+        subj.getReport("31-12-2022 10:00", "31-12-2023 10:00", filterType.getId(), 1L);
         verify(transactionRepository).getAllByFilter(argumentCaptor.capture());
         assertEquals(filter, argumentCaptor.getValue());
 

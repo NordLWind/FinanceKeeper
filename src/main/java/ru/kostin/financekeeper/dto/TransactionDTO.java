@@ -15,6 +15,7 @@ public class TransactionDTO implements Dto {
     private String target;
     private String amount;
     private String description;
+    private String date;
 
     public Long getId() {
         return id;

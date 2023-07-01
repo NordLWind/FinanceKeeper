@@ -11,15 +11,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
+                .antMatchers("/register").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/api/user/*").permitAll()
-                .antMatchers("/api/**").hasAnyRole(Role.USER.name(), Role.ADMIN.name());
-
+                .antMatchers("/api/**").hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+                .anyRequest().authenticated();
         http.formLogin()
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .loginPage("/sign-in")
-                .loginProcessingUrl("/login")
+                .loginPage("/login")
+                .loginProcessingUrl("/do-login")
                 .defaultSuccessUrl("/");
 
         http.logout()

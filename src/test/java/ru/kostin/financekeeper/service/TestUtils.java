@@ -54,7 +54,7 @@ public class TestUtils {
         if (date == null) {
             return null;
         }
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return new Timestamp(format.parse(date).getTime());
     }
 
