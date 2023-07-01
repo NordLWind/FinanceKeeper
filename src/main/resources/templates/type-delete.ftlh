@@ -23,7 +23,7 @@
             </div>
             <button type="submit" class="btn btn-primary btn-block mb-4">Удалить</button>
             <div class="text-center">
-                <p><a href="/">Назад</a></p>
+                <p><a href="/account/menu">Назад</a></p>
             </div>
         </form>
     </div>

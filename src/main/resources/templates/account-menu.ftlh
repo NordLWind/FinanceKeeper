@@ -18,24 +18,23 @@
             <div class="list-group">
 
                 <div class="btn-group">
-                    <button class="btn btn-primary btn-lg" role="button" type="button" data-toggle="dropdown"
-                            aria-expanded="false">
+                    <button class="btn btn-primary btn-lg" role="button" type="button">
                         <a href="/account/list" class="list-group-item list-group-item-action">Список счетов</a>
                     </button>
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-primary btn-lg" type="button" data-toggle="dropdown" aria-expanded="false">
-                        <a href="/account/create" class="list-group-item list-group-item-action">Создать счет</a>
+                    <button class="btn btn-primary btn-lg" type="button">
+                        <a href="/account/add" class="list-group-item list-group-item-action">Создать счет</a>
                     </button>
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-primary btn-lg" type="button" data-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-primary btn-lg" type="button">
                         <a href="/account/delete" class="list-group-item list-group-item-action">Удалить счет</a>
                     </button>
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-primary btn-lg " type="button" data-toggle="dropdown" aria-expanded="false">
-                        <a href="/" class="list-group-item list-group-item-action">Назад</a>
+                    <button class="btn btn-primary btn-lg " type="button">
+                        <a href="/index" class="list-group-item list-group-item-action">Назад</a>
                     </button>
                 </div>
             </div>

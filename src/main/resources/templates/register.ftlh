@@ -31,7 +31,7 @@
             </div>
             <button type="submit" class="btn btn-primary btn-block mb-4">Зарегистрироваться</button>
             <div class="text-center">
-                <p>Уже заполняли это все? <a href="/register">Войдите!</a></p>
+                <p>Уже заполняли это все? <a href="/login">Войдите!</a></p>
             </div>
         </form></div>
     <div class="col-md-4">.col-md-3</div>

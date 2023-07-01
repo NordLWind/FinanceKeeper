@@ -19,22 +19,22 @@
             <div class="list-group">
                 <div class="btn-group">
                     <button class="btn btn-primary btn-lg" role="button" type="button">
-                        <a href="/type/list" class="list-group-item list-group-item-action">Список счетов</a>
+                        <a href="/type/list" class="list-group-item list-group-item-action">Список типов</a>
                     </button>
                 </div>
                 <div class="btn-group">
                     <button class="btn btn-primary btn-lg" type="button">
-                        <a href="/type/add" class="list-group-item list-group-item-action">Создать счет</a>
+                        <a href="/type/add" class="list-group-item list-group-item-action">Создать тип</a>
                     </button>
                 </div>
                 <div class="btn-group">
                     <button class="btn btn-primary btn-lg" type="button">
-                        <a href="/type/delete" class="list-group-item list-group-item-action">Удалить счет</a>
+                        <a href="/type/delete" class="list-group-item list-group-item-action">Удалить тип</a>
                     </button>
                 </div>
                 <div class="btn-group">
                     <button class="btn btn-primary btn-lg " type="button">
-                        <a href="/" class="list-group-item list-group-item-action">Назад</a>
+                        <a href="/index" class="list-group-item list-group-item-action">Назад</a>
                     </button>
                 </div>
             </div>

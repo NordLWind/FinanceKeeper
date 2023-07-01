@@ -11,6 +11,11 @@ public class RedirectController {
         return "index";
     }
 
+    @GetMapping("/index")
+    public String getIndex() {
+        return "index";
+    }
+
     @GetMapping("/account/menu")
     public String getAccountMenu() {
         return "account-menu";

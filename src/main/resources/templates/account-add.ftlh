@@ -27,7 +27,7 @@
             </div>
             <button type="submit" class="btn btn-primary btn-block mb-4">Создать!</button>
             <div class="text-center">
-                <p><a href="/">Назад</a></p>
+                <p><a href="/account/menu">Назад</a></p>
             </div>
         </form></div>
     <div class="col-md-4">.col-md-3</div>
