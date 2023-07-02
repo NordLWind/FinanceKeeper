@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: postgres
-    url: jdbc:postgresql://localhost:5432/finance_keeper
+    username: ${jdbcUser}
+    password: ${jdbcPassword}
+    url: ${jdbcUrl}
   liquibase:
     change-log: db/changelog/changelog-master.xml
   jpa:
