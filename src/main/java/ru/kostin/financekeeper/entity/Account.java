@@ -25,7 +25,7 @@ public class Account {
     private BigDecimal balance;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "user_id")
     private User owner;
 
     @Override
